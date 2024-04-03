@@ -23,8 +23,9 @@ def dijkstra_get_path(graph, current, end, queue=[], paths=[{}]):
     return dijkstra_get_path(graph, current, end, [current], [{'path':[current], 'adder':0}])
   
   if current == end:
-    paths[-1]['adder'] += get_edge_weight(graph, paths[-1]['path'][-1], current)
-    paths[-1]['path'].append(current)
+    if end in graph.neighbors(paths[-1]['path'][-1]):
+      paths[-1]['adder'] += get_edge_weight(graph, paths[-1]['path'][-1], current)
+      paths[-1]['path'].append(current)
     paths = [p for p in paths if p['path'][-1] == end]
 
     for i in range(len(paths)):
@@ -49,4 +50,4 @@ def dijkstra_get_path(graph, current, end, queue=[], paths=[{}]):
 
 
 print('\nAll hail Lord Dijkstra!')
-print(dijkstra_get_path(GRAPH, 3, 21))
+print(dijkstra_get_path(GRAPH, 1, 17))
